@@ -10,13 +10,14 @@ if ($conn->connect_error) {
 // Handle form submission
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $conn->real_escape_string($_POST['username']);
-    $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
+    $password = $conn->real_escape_string($_POST['password']);      
     
     // Insert user into the database
     $sql = "INSERT INTO buyer (username, password) VALUES ('$username',  '$password')";
 
     if ($conn->query($sql) === TRUE) {
-        echo "Registration successful! <a href='login.php'>Login now</a>";
+        echo "Registration successful! <a href='login.php'>Login now</a>"
+;
     } else {
         echo "Error: " . $sql . "<br>" . $conn->error;
     }
@@ -24,3 +25,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $conn->close();
 }
 ?>
+
