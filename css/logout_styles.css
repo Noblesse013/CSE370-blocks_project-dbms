@@ -1,10 +1,9 @@
-/* Logout Page Styles */
 
 body {
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
-    background: linear-gradient(to right, #0c0c0c, #e5b48f);
+    background: url('background.jpg') no-repeat center center/cover;
     height: 100vh;
     display: flex;
     justify-content: center;
@@ -46,4 +45,3 @@ body {
     background: #333;
     color: #fff;
 }
-

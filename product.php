@@ -73,10 +73,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
     <header>Admin View</header>
 
-    <form method="post" action="logout.php" style="display: inline; float: right; margin: 10px;">
-        <button type="submit" style="cursor: pointer;">Logout</button>
-    </form>
-    
     <div class="container">
         <form method="POST" action="product.php">
             <h2>Add Product</h2>
@@ -247,6 +243,11 @@ if ($result && $result->num_rows > 0) {
 }
 $conn->close();
 ?>
-        
+
+<div style="text-align: center; margin: 10px;">
+    <form method="post" action="logout.php" style="display: inline-block;">
+        <button type="submit" style="cursor: pointer;">Logout</button>
+    </form>
+</div>
 </body>
 </html>
