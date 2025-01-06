@@ -55,7 +55,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Order</title>
-    <link rel="stylesheet" href="css/buy_styles.css">
+    <link rel="stylesheet" href="css/buy_style.css">
 </head>
 <body>
     <h1>Create Order</h1>
@@ -75,6 +75,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         <button type="button" onclick="addProduct()">Add More Products</button>
         <button type="submit">Submit Order</button>
+        <button type="button" onclick="window.location.href='show_order.php'">Show Orders</button>
+        <button type="button" onclick="window.location.href='buy_view.php'">Check Availability</button>
+
     </form>
 
     <script>
