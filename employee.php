@@ -7,7 +7,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $product_name = $_POST['product_name'];
         $new_quantity = $_POST['product_quantity'];
 
-        // Update product quantity based on Product ID and Name
         $stmt = $conn->prepare("UPDATE product SET quantity = ? WHERE product_id = ? AND name = ?");
         $stmt->bind_param("iis", $new_quantity, $product_id, $product_name);
         $stmt->execute();
@@ -17,12 +16,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST['delete_order'])) {
         $order_id = $_POST['order_id'];
 
-        // Delete related order details first
         $stmt = $conn->prepare("DELETE FROM `order_details` WHERE order_id = ?");
         $stmt->bind_param("i", $order_id);
         $stmt->execute();
 
-        // Delete the order
         $stmt = $conn->prepare("DELETE FROM `order` WHERE order_id = ?");
         $stmt->bind_param("i", $order_id);
         $stmt->execute();
@@ -48,7 +45,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </form>
     </header>
     <main>
-        <!-- Update Product Quantity -->
         <section>
             <h2>Update Product Quantity</h2>
             <form method="POST" action="employee.php">
@@ -61,8 +57,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <button type="submit" name="update_quantity">Update Quantity</button>
             </form>
         </section>
-
-        <!-- View Product Stock -->
         <section>
             <h2>View Product Stock</h2>
             <?php
@@ -97,7 +91,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             ?>
         </section>
 
-        <!-- Manage Orders -->
         <section>
         <h2>Manage Orders</h2>
         <?php
