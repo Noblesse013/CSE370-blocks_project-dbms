@@ -17,6 +17,9 @@ $result = $conn->query($sql);
 <body>
     <header>
         <h1>Available Products</h1>
+        <form method="post" action="logout.php" style="display: inline; float: right; margin: 10px;">
+            <button type="submit" style="cursor: pointer;">Logout</button>
+        </form>
     </header>
     <main>
         <?php if ($result->num_rows > 0): ?>

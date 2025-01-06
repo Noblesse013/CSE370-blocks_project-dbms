@@ -43,6 +43,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
     <header>
         <h1>Employee View</h1>
+        <form method="post" action="logout.php" style="display: inline; float: right; margin: 10px;">
+            <button type="submit" style="cursor: pointer;">Logout</button>
+        </form>
     </header>
     <main>
         <!-- Update Product Quantity -->
