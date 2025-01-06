@@ -4,16 +4,16 @@ require 'DBconnect.php';
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $buyer_id = $_POST['buyer_id'];
     $order_date = date('Y-m-d H:i:s');
-    $products = $_POST['products'];
+    $products = $_POST['products']; // Array of products with Name and Quantity
 
 
     $order_sql = "INSERT INTO `order` (Buyer_ID, Order_Date) VALUES (?, ?)";
     $stmt = $conn->prepare($order_sql);
     $stmt->bind_param("is", $buyer_id, $order_date);
     $stmt->execute();
-    $order_id = $conn->insert_id; 
+    $order_id = $conn->insert_id; // Get the last inserted Order_ID
 
- 
+
     $order_details_sql = "INSERT INTO `order_details` (Order_ID, Product_ID, Quantity, Total_Price) VALUES (?, ?, ?, ?)";
     $stmt = $conn->prepare($order_details_sql);
 
@@ -21,6 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $product_name = $product['product_name'];
         $quantity = $product['quantity'];
 
+        // Fetch product ID and price
         $product_sql = "SELECT Product_ID, Price FROM product WHERE Name = ?";
         $product_stmt = $conn->prepare($product_sql);
         $product_stmt->bind_param("s", $product_name);
@@ -31,22 +32,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $product_id = $product_row['Product_ID'];
             $product_price = $product_row['Price'];
 
-            
-
             $total_price = $product_price * $quantity;
 
+        
             $stmt->bind_param("iiid", $order_id, $product_id, $quantity, $total_price);
             $stmt->execute();
-            $update_quantity_sql = "UPDATE product SET Quantity = Quantity - ? WHERE Product_ID = ?";
-            $update_quantity_stmt = $conn->prepare($update_quantity_sql);
-            $update_quantity_stmt->bind_param("ii", $quantity, $product_id);
-            $update_quantity_stmt->execute();
         } else {
             echo "Error: Product '$product_name' not found.";
             exit();
         }
     }
 
+    echo "Order created successfully!";
     $stmt->close();
     $conn->close();
 }
@@ -58,7 +55,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Order</title>
-    <link rel="stylesheet" href="css/buy_style.css">
+    <link rel="stylesheet" href="css/buy_styles.css">
 </head>
 <body>
     <h1>Create Order</h1>
@@ -96,8 +93,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             productCount++;
         }
     </script>
-    <div class="action-buttons">
-        <button onclick="window.location.href='show_order.php'">Show Order</button>
-    </div>
 </body>
 </html>

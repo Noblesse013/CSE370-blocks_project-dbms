@@ -1,11 +1,23 @@
 <?php
 session_start();
-
-// Destroy the session to log out the user
 session_unset();
 session_destroy();
-
-// Redirect to the login page with a logout success message
-header("Location: login.php?message=logged_out");
-exit;
 ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logged Out</title>
+    <link rel="stylesheet" href="css/logout_styles.css">
+</head>
+<body>
+    <div class="logout-container">
+        <div class="logout-message">
+            <h1>You have successfully logged out!</h1>
+            <p>Thank you for visiting. Click below to log in again.</p>
+            <a href="login.php" class="btn">Login</a>
+        </div>
+    </div>
+</body>
+</html>
