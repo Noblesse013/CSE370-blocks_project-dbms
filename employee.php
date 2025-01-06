@@ -40,9 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
     <header>
         <h1>Employee View</h1>
-        <form method="post" action="logout.php" style="display: inline; float: right; margin: 10px;">
-            <button type="submit" style="cursor: pointer;">Logout</button>
-        </form>
+
     </header>
     <main>
         <section>
@@ -131,5 +129,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         ?>
         </section>
     </main>
+    <div style="text-align: center; margin: 10px;">
+    <form method="post" action="logout.php" style="display: inline-block;">
+        <button type="submit" style="cursor: pointer;">Logout</button>
 </body>
 </html>

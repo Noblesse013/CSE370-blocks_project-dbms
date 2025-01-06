@@ -30,7 +30,7 @@ $result = $conn->query($sql);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View Orders</title>
-    <link rel="stylesheet" href="css/admin_style.css">
+    <link rel="stylesheet" href="css/admin_styles.css">
 </head>
 <body>
     <h1>Order Details</h1>
@@ -64,5 +64,9 @@ $result = $conn->query($sql);
     <?php endif; ?>
 
     <?php $conn->close(); ?>
+    <div style="text-align: center; margin: 10px;">
+    <form method="post" action="logout.php" style="display: inline-block;">
+        <button type="submit" style="cursor: pointer;">Logout</button>
+    <button type="button" onclick="window.location.href='create_order.php'">Go Back</button>
 </body>
 </html>
