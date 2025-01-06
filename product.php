@@ -72,7 +72,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="stylesheet" href="css/admin_styles.css">
 </head>
 <body>
-    <h1>Admin View</h1>
+    <header>Admin View</header>
     <div class="container">
         <form method="POST" action="product.php">
             <h2>Add Product</h2>
