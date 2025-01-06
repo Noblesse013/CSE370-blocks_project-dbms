@@ -1,7 +1,6 @@
 <?php
 require 'DBconnect.php';
 
-// Fetch products
 $sql = "SELECT name, price, quantity FROM product ORDER BY name ASC";
 $result = $conn->query($sql);
 ?>
