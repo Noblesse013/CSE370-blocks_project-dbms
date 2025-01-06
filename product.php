@@ -72,6 +72,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 <body>
     <header>Admin View</header>
+
+    <form method="post" action="logout.php" style="display: inline; float: right; margin: 10px;">
+        <button type="submit" style="cursor: pointer;">Logout</button>
+    </form>
+    
     <div class="container">
         <form method="POST" action="product.php">
             <h2>Add Product</h2>
