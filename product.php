@@ -141,43 +141,108 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
     ?>
         
-        <h1>Manage Orders</h1>
-        <?php
-        $result = $conn->query("SELECT o.order_id, o.buyer_id, b.username AS buyer_name, p.name AS product_name, od.quantity AS product_quantity FROM `order` o JOIN buyer b ON o.buyer_id = b.buyer_id JOIN order_details od ON o.order_id = od.order_id JOIN product p ON od.product_id = p.product_id");
+    <h1>Manage Orders</h1>
+    <?php
+    $result = $conn->query("SELECT o.order_id, o.buyer_id, b.username AS buyer_name, p.name AS product_name, od.quantity AS product_quantity FROM `order` o JOIN buyer b ON o.buyer_id = b.buyer_id JOIN order_details od ON o.order_id = od.order_id JOIN product p ON od.product_id = p.product_id");
 
-        if ($result && $result->num_rows > 0) {
-            echo "<table>
-                    
-                        <tr>
-                            <th>Order ID</th>
-                            <th>Buyer Name</th>
-                            <th>Product Name</th>
-                            <th>Quantity</th>
-                            <th>Actions</th>
-                        </tr>
-                    
-                    <tbody>";
-            while ($row = $result->fetch_assoc()) {
-                echo "<tr>
-                        <td>" . htmlspecialchars($row['order_id']) . "</td>
-                        <td>" . htmlspecialchars($row['buyer_name']) . "</td>
-                        <td>" . htmlspecialchars($row['product_name']) . "</td>
-                        <td>" . htmlspecialchars($row['product_quantity']) . "</td>
-                        <td>
-                            <form method='POST' action='product.php' style='display: inline-block;'>
-                                <input type='hidden' name='order_id' value='" . htmlspecialchars($row['order_id']) . "'>
-                                <button type='submit' name='delete_order'>Delete Order</button>
-                            </form>
-                        </td>
-                    </tr>";
-            }
-            echo "</tbody>
-                </table>";
-        } else {
-            echo "<p>No orders found.</p>";
+    if ($result && $result->num_rows > 0) {
+        echo "<table>
+                
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Buyer Name</th>
+                        <th>Product Name</th>
+                        <th>Quantity</th>
+                        <th>Actions</th>
+                    </tr>
+                
+                <tbody>";
+        while ($row = $result->fetch_assoc()) {
+            echo "<tr>
+                    <td>" . htmlspecialchars($row['order_id']) . "</td>
+                    <td>" . htmlspecialchars($row['buyer_name']) . "</td>
+                    <td>" . htmlspecialchars($row['product_name']) . "</td>
+                    <td>" . htmlspecialchars($row['product_quantity']) . "</td>
+                    <td>
+                        <form method='POST' action='product.php' style='display: inline-block;'>
+                            <input type='hidden' name='order_id' value='" . htmlspecialchars($row['order_id']) . "'>
+                            <button type='submit' name='delete_order'>Delete Order</button>
+                        </form>
+                    </td>
+                </tr>";
         }
-        $conn->close();
-        ?>
+        echo "</tbody>
+            </table>";
+    } else {
+        echo "<p>No orders found.</p>";
+    }
+    ?>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<h1>Product Quantity Graph</h1>
+<canvas id="productQuantityChart" width="100" height="50"></canvas>
+
+<script>
+    const ctx = document.getElementById('productQuantityChart').getContext('2d');
+    const productData = <?php
+        $result = $conn->query("SELECT name, quantity FROM product");
+        $productNames = [];
+        $productQuantities = [];
+        while ($row = $result->fetch_assoc()) {
+            $productNames[] = $row['name'];
+            $productQuantities[] = $row['quantity'];
+        }
+        echo json_encode(['names' => $productNames, 'quantities' => $productQuantities]);
+    ?>;
+    
+    const productQuantityChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: productData.names,
+            datasets: [{
+                label: 'Product Quantity',
+                data: productData.quantities,
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script>
+
+
+<h1>Low Stock Warning</h1>
+<?php
+$result = $conn->query("SELECT product_id, name, quantity FROM product WHERE quantity <= 1");
+
+if ($result && $result->num_rows > 0) {
+    echo "<table border='1'>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Quantity</th>
+            </tr>";
+    while ($row = $result->fetch_assoc()) {
+        echo "<tr>
+                <td>" . htmlspecialchars($row['product_id']) . "</td>
+                <td>" . htmlspecialchars($row['name']) . "</td>
+                <td>" . htmlspecialchars($row['quantity']) . "</td>
+              </tr>";
+    }
+    echo "</table>";
+} else {
+    echo "No products with low stock.";
+    echo "No products with low stock.";
+}
+$conn->close();
+?>
         
 </body>
 </html>
