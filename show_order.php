@@ -30,7 +30,7 @@ $result = $conn->query($sql);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View Orders</title>
-    <link rel="stylesheet" href="css/admin_styles.css">
+    <link rel="stylesheet" href="css/buy_style.css">
 </head>
 <body>
     <h1>Order Details</h1>
