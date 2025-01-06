@@ -19,5 +19,6 @@ session_destroy();
             <a href="login.php" class="btn">Login</a>
         </div>
     </div>
+
 </body>
 </html>
