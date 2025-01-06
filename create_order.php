@@ -47,7 +47,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 
-    echo "Order created successfully!";
     $stmt->close();
     $conn->close();
 }
