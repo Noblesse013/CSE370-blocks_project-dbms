@@ -61,7 +61,7 @@ Follow these steps to set up the project locally:
    - Import the provided SQL file (`blocks_inventory.sql`) located in the project folder.  
 
 5. **Configure Database Connection**:  
-   - Open the `config.php` file in the project.  
+   - Open the `DBconnect.php` file in the project.  
    - Update the database credentials:  
      ```php
      $servername = "localhost";
