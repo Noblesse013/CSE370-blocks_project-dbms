@@ -98,7 +98,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <section>
         <h2>Manage Orders</h2>
         <?php
-        $result = $conn->query("SELECT o.order_id, o.buyer_id, b.username AS buyer_name, p.name AS product_name FROM `order` o JOIN buyer b ON o.buyer_id = b.buyer_id JOIN order_details od ON o.order_id = od.order_id JOIN product p ON od.product_id = p.product_id");
+        $result = $conn->query("SELECT o.order_id, o.buyer_id, b.username AS buyer_name, p.name AS product_name, od.quantity AS product_quantity FROM `order` o JOIN buyer b ON o.buyer_id = b.buyer_id JOIN order_details od ON o.order_id = od.order_id JOIN product p ON od.product_id = p.product_id");
 
         if ($result && $result->num_rows > 0) {
             echo "<table>
@@ -107,6 +107,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <th>Order ID</th>
                             <th>Buyer Name</th>
                             <th>Product Name</th>
+                            <th>Quantity</th>
                             <th>Actions</th>
                         </tr>
                     
@@ -116,8 +117,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <td>" . htmlspecialchars($row['order_id']) . "</td>
                         <td>" . htmlspecialchars($row['buyer_name']) . "</td>
                         <td>" . htmlspecialchars($row['product_name']) . "</td>
+                        <td>" . htmlspecialchars($row['product_quantity']) . "</td>
                         <td>
-                            <form method='POST' action='employee.php' style='display: inline-block;'>
+                            <form method='POST' action='product.php' style='display: inline-block;'>
                                 <input type='hidden' name='order_id' value='" . htmlspecialchars($row['order_id']) . "'>
                                 <button type='submit' name='delete_order'>Delete Order</button>
                             </form>
