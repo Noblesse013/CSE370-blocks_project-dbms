@@ -1,4 +1,10 @@
 <?php
+session_start();
+if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'buyer') {
+
+    header("Location: acess_denied.php"); 
+    exit();
+}
 require 'DBconnect.php';
 
 $sql = "SELECT name, price, quantity FROM product ORDER BY name ASC";

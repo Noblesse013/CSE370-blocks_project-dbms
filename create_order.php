@@ -1,17 +1,23 @@
 <?php
+
+session_start();
+if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'buyer') {
+    header("Location: acess_denied.php"); 
+    exit();
+}
 require 'DBconnect.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $buyer_id = $_POST['buyer_id'];
     $order_date = date('Y-m-d H:i:s');
-    $products = $_POST['products']; // Array of products with Name and Quantity
+    $products = $_POST['products']; 
 
 
     $order_sql = "INSERT INTO `order` (Buyer_ID, Order_Date) VALUES (?, ?)";
     $stmt = $conn->prepare($order_sql);
     $stmt->bind_param("is", $buyer_id, $order_date);
     $stmt->execute();
-    $order_id = $conn->insert_id; // Get the last inserted Order_ID
+    $order_id = $conn->insert_id;
 
 
     $order_details_sql = "INSERT INTO `order_details` (Order_ID, Product_ID, Quantity, Total_Price) VALUES (?, ?, ?, ?)";
@@ -21,7 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $product_name = $product['product_name'];
         $quantity = $product['quantity'];
 
-        // Fetch product ID and price
+        
         $product_sql = "SELECT Product_ID, Price FROM product WHERE Name = ?";
         $product_stmt = $conn->prepare($product_sql);
         $product_stmt->bind_param("s", $product_name);

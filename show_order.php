@@ -1,4 +1,10 @@
 <?php
+session_start();
+if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'buyer') {
+    header("Location: login.php"); 
+    exit();
+}
+
 require'DBconnect.php';
 
 $sql = "
