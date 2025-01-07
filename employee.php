@@ -1,4 +1,12 @@
 <?php
+session_start();
+
+// Check if the user is logged in and has the 'buyerUser' role
+if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'employee') {
+    // Redirect to login page or error page if the user is not a buyer
+    header("Location: acess_denied.php");  // Or redirect to an error page
+    exit();
+}
 require 'DBconnect.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {

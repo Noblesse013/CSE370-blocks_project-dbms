@@ -112,7 +112,7 @@ button[type="submit"]:hover {
     background-color: #555;
 }
 
-/* Product Section (Create Order) */
+
 #product-section > div {
     margin-bottom: 1rem;
     padding: 1rem;
@@ -135,7 +135,7 @@ button[type="submit"]:hover {
     margin: 0.5rem 0;
 }
 
-/* Action Buttons (Buyer View) */
+
 .action-buttons {
     margin-top: 1.5rem;
     text-align: center;
@@ -152,7 +152,6 @@ button[type="submit"]:hover {
     background-color: #555;
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
     table {
         font-size: 0.9rem;
